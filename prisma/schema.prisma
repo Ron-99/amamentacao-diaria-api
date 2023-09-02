@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model History {
+  id         String    @id @default(uuid())
+  userId     String    @map("user_id")
+  babyName   String    @map("baby_name")
+  startedAt  DateTime  @map("started_at")
+  finishedAt DateTime? @map("finished_at")
+
+  breasts BreastHistory[]
+}
+
+model BreastHistory {
+  id        String   @id @default(uuid())
+  isLeft    Boolean  @default(true)
+  time      DateTime @default(now())
+  historyId String
+
+  history History @relation(fields: [historyId], references: [id])
+}
