@@ -7,4 +7,4 @@ app.use(express.json())
 
 app.use('/history', router)
 
-app.listen(3333, () => 'server is running on port 3333')
+app.listen(10000, () => 'server is running on port 10000')
